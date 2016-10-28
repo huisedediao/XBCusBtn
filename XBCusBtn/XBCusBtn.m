@@ -305,14 +305,14 @@ label.frame.size.width;\
             {
                 case XBCusBtnTypeImageLeft://水平，图片在左边
                 {
-                    titleX=(rect.size.width-self.titleRectSize.width-self.spaceToContentSide-self.imageRectSize.width)*0.5+self.imageRectSize.width+self.spaceOfImageAndTitle;
+                    titleX=(rect.size.width-self.titleRectSize.width-self.spaceOfImageAndTitle-self.imageRectSize.width)*0.5+self.imageRectSize.width+self.spaceOfImageAndTitle;
                     
                     titleY=(rect.size.height-self.titleRectSize.height)*0.5;
                 }
                     break;
                 case XBCusBtnTypeTitleLeft://水平，文字在左边
                 {
-                    titleX=(rect.size.width-self.titleRectSize.width-self.spaceToContentSide-self.imageRectSize.width)*0.5;
+                    titleX=(rect.size.width-self.titleRectSize.width-self.spaceOfImageAndTitle-self.imageRectSize.width)*0.5;
                     
                     titleY=(rect.size.height-self.titleRectSize.height)*0.5;
                 }
@@ -399,7 +399,14 @@ label.frame.size.width;\
             default:
                 break;
         }
-        self.imageRectSize=CGSizeMake(imageW, imageH);
+        if (self.imageSize.width==CGSizeZero.width && self.imageSize.height==CGSizeZero.height)
+        {
+            self.imageRectSize=CGSizeMake(imageW, imageH);
+        }
+        else
+        {
+            self.imageRectSize=self.imageSize;
+        }
     }
 }
 
@@ -452,6 +459,11 @@ label.frame.size.width;\
 -(void)setContentType:(XBCusBtnContentType)contentType
 {
     _contentType=contentType;
+    [self setNeedsDisplay];
+}
+-(void)setImageSize:(CGSize)imageSize
+{
+    _imageSize=imageSize;
     [self setNeedsDisplay];
 }
 -(void)setSelected:(BOOL)selected
