@@ -200,7 +200,7 @@ label.frame.size.width;\
                     imageY=self.titleOrigin.y+self.titleRectSize.height+self.spaceOfImageAndTitle;
                     imageX=(rect.size.width-self.imageRectSize.width)*0.5;
                 }
-                     break;
+                    break;
                     
                 default:
                     break;
@@ -323,14 +323,14 @@ label.frame.size.width;\
                     titleY=(rect.size.height-self.titleRectSize.height-self.imageRectSize.height-self.spaceOfImageAndTitle)*0.5+self.imageRectSize.height+self.spaceOfImageAndTitle;
                     titleX=(rect.size.width-self.titleRectSize.width)*0.5;
                 }
-                     break;
+                    break;
                     
                 case XBCusBtnTypeTitleTop:
                 {
                     titleY=(rect.size.height-self.titleRectSize.height-self.imageRectSize.height-self.spaceOfImageAndTitle)*0.5;
                     titleX=(rect.size.width-self.titleRectSize.width)*0.5;
                 }
-                     break;
+                    break;
                 default:
                     break;
             }
@@ -471,41 +471,17 @@ label.frame.size.width;\
     [super setSelected:selected];
     if (selected)
     {
-        if (self.titleColorSelected)
-        {
-            self.titleColor=self.titleColorSelected;
-        }
-        if (self.titleSelected)
-        {
-            self.title=self.titleSelected;
-        }
-        if (self.imageSelected)
-        {
-            self.image=self.imageSelected;
-        }
-        if (self.backgroundImageSelected)
-        {
-            self.backgroundImage=self.backgroundImageSelected;
-        }
+        self.titleColor=self.titleColorSelected?self.titleColorSelected:self.titleColorNormal;
+        self.title=self.titleSelected?self.titleSelected:self.titleNormal;
+        self.image=self.imageSelected?self.imageSelected:self.imageNormal;
+        self.backgroundImage=self.backgroundImageSelected?self.backgroundImageSelected:self.backgroundImageNormal;
     }
     else
     {
-        if (self.titleColorNormal)
-        {
-            self.titleColor=self.titleColorNormal;
-        }
-        if (self.titleNormal)
-        {
-            self.title=self.titleNormal;
-        }
-        if (self.imageNormal)
-        {
-            self.image=self.imageNormal;
-        }
-        if (self.backgroundImageNormal)
-        {
-            self.backgroundImage=self.backgroundImageNormal;
-        }
+        self.titleColor=self.titleColorNormal?self.titleColorNormal:self.titleColorSelected;
+        self.title=self.titleNormal?self.titleNormal:self.titleSelected;
+        self.image=self.imageNormal?self.imageNormal:self.imageSelected;
+        self.backgroundImage=self.backgroundImageNormal?self.backgroundImageNormal:self.backgroundImageSelected;
     }
 }
 //-(void)setTitleNormal:(NSString *)titleNormal
