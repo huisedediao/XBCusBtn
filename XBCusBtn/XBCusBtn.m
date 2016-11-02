@@ -87,7 +87,10 @@ label.frame.size.width;\
     }
     if (self.title)
     {
-        [self.title drawInRect:CGRectMake(self.titleOrigin.x, self.titleOrigin.y,self.titleRectSize.width,self.titleRectSize.height) withAttributes:@{NSForegroundColorAttributeName:self.titleColor,NSFontAttributeName:self.titleFont}];
+        NSMutableDictionary *dict=[NSMutableDictionary new];
+        dict[NSForegroundColorAttributeName]=self.titleColor;
+        dict[NSFontAttributeName]=self.titleFont;
+        [self.title drawInRect:CGRectMake(self.titleOrigin.x, self.titleOrigin.y,self.titleRectSize.width,self.titleRectSize.height) withAttributes:dict];
     }
 }
 
