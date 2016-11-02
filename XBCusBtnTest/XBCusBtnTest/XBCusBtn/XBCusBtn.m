@@ -81,9 +81,14 @@ label.frame.size.width;\
     {
         [self.backgroundImage drawInRect:rect];
     }
-    
-    [self.image drawInRect:CGRectMake(self.imageOrigin.x, self.imageOrigin.y,self.imageRectSize.width,self.imageRectSize.height)];
-    [self.title drawInRect:CGRectMake(self.titleOrigin.x, self.titleOrigin.y,self.titleRectSize.width,self.titleRectSize.height) withAttributes:@{NSForegroundColorAttributeName:self.titleColor,NSFontAttributeName:self.titleFont}];
+    if (self.image)
+    {
+        [self.image drawInRect:CGRectMake(self.imageOrigin.x, self.imageOrigin.y,self.imageRectSize.width,self.imageRectSize.height)];
+    }
+    if (self.title)
+    {
+        [self.title drawInRect:CGRectMake(self.titleOrigin.x, self.titleOrigin.y,self.titleRectSize.width,self.titleRectSize.height) withAttributes:@{NSForegroundColorAttributeName:self.titleColor,NSFontAttributeName:self.titleFont}];
+    }
 }
 
 
