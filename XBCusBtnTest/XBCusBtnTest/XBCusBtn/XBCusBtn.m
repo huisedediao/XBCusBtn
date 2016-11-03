@@ -91,6 +91,25 @@ label.frame.size.width;\
         [super sendAction:action to:target forEvent:event];
     }
 }
+-(void)addTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents
+{
+    if (target==self)
+    {
+        if ([self actionsForTarget:self forControlEvent:controlEvents])
+        {
+            return;
+        }
+        [super addTarget:target action:action forControlEvents:controlEvents];
+    }
+    else
+    {
+        if ([self actionsForTarget:self forControlEvent:controlEvents])
+        {
+            [self removeTarget:self action:action forControlEvents:controlEvents];
+        }
+        [super addTarget:target action:action forControlEvents:controlEvents];
+    }
+}
 
 -(void)drawRect:(CGRect)rect
 {
