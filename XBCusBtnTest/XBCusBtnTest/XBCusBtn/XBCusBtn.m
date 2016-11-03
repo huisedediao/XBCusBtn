@@ -7,7 +7,10 @@
 //
 
 #import "XBCusBtn.h"
+#import <objc/message.h>
 
+//block weak属性化self宏
+#define WEAK_SELF __typeof(self) __weak weakSelf = self;
 
 //字符串是否为空
 #define StringIsEmpty(str) ([str isKindOfClass:[NSNull class]] || str == nil || [str length] < 1 ? YES : NO )
@@ -25,6 +28,11 @@ label.frame.size.width;\
 })
 
 @interface XBCusBtn ()
+{
+    id targetSave;
+    SEL actionSave;
+    UIControlEvents controlEventsSave;
+}
 @property (nonatomic,assign) CGSize imageRectSize;
 @property (nonatomic,assign) CGSize titleRectSize;
 @property (nonatomic,assign) CGPoint imageOrigin;
@@ -67,6 +75,21 @@ label.frame.size.width;\
     self.spaceOfImageAndTitle=0;
     self.spaceToContentSide=0;
     self.contentSide=XBCusBtnSideCenter;
+    
+}
+
+-(void)sendAction:(SEL)action to:(id)target forEvent:(UIEvent *)event
+{
+    if (self.block)
+    {
+        WEAK_SELF
+        ActionBlock block=[self.block copy];
+        block(weakSelf);
+    }
+    else
+    {
+        [super sendAction:action to:target forEvent:event];
+    }
 }
 
 -(void)drawRect:(CGRect)rect

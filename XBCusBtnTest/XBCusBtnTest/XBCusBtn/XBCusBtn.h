@@ -23,6 +23,10 @@ typedef enum : NSUInteger {
     XBCusBtnSideCenter
 } XBCusBtnContentSide;
 
+@class XBCusBtn;
+
+typedef void(^ActionBlock)(XBCusBtn *weakBtn);
+
 @interface XBCusBtn : UIControl
 /** 图片和文字排布样式 ，默认图片在左*/
 @property (nonatomic,assign) XBCusBtnContentType contentType;
@@ -56,4 +60,8 @@ typedef enum : NSUInteger {
 @property (nonatomic,strong) UIImage *backgroundImageNormal;
 /** 选中状态的背景图片 */
 @property (nonatomic,strong) UIImage *backgroundImageSelected;
+
+/** 点击回调 */
+@property (nonatomic,copy) ActionBlock block;
+
 @end
