@@ -75,9 +75,9 @@ label.frame.size.width;\
     self.spaceOfImageAndTitle=0;
     self.spaceToContentSide=0;
     self.contentSide=XBCusBtnSideCenter;
-    
+    [self addTarget:self action:@selector(selfClick) forControlEvents:UIControlEventTouchUpInside];
 }
-
+-(void)selfClick{}
 -(void)sendAction:(SEL)action to:(id)target forEvent:(UIEvent *)event
 {
     if (self.block)
