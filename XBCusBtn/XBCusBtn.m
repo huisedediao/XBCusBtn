@@ -75,6 +75,9 @@ label.frame.size.width;\
     self.spaceOfImageAndTitle=0;
     self.spaceToContentSide=0;
     self.contentSide=XBCusBtnSideCenter;
+    self.backgroundColorNormal=[UIColor clearColor];
+//    self.backgroundColorHighlight=[UIColor clearColor];
+    self.layer.masksToBounds=YES;
     [self addTarget:self action:@selector(selfClick) forControlEvents:UIControlEventTouchUpInside];
 }
 -(void)selfClick{}
@@ -516,6 +519,25 @@ label.frame.size.width;\
     _imageSize=imageSize;
     [self setNeedsDisplay];
 }
+-(void)setHighlighted:(BOOL)highlighted
+{
+    [super setHighlighted:highlighted];
+    if (highlighted)
+    {
+        if (self.backgroundColorHighlight)
+        {
+            self.backgroundColor=self.backgroundColorHighlight;
+        }
+        else
+        {
+            self.backgroundColor=self.backgroundColorNormal;
+        }
+    }
+    else
+    {
+        self.backgroundColor=self.backgroundColorNormal;
+    }
+}
 -(void)setSelected:(BOOL)selected
 {
     [super setSelected:selected];
@@ -534,45 +556,50 @@ label.frame.size.width;\
         self.backgroundImage=self.backgroundImageNormal?self.backgroundImageNormal:self.backgroundImageSelected;
     }
 }
-//-(void)setTitleNormal:(NSString *)titleNormal
-//{
-//    _titleNormal=titleNormal;
-//    self.title=titleNormal;
-//}
-//-(void)setTitleSelected:(NSString *)titleSelected
-//{
-//    _titleSelected=titleSelected;
-//    self.title=titleSelected;
-//}
-//-(void)setTitleColorNormal:(UIColor *)titleColorNormal
-//{
-//    _titleColorNormal=titleColorNormal;
-//    self.titleColor=titleColorNormal;
-//}
-//-(void)setTitleColorSelected:(UIColor *)titleColorSelected
-//{
-//    _titleColorSelected=titleColorSelected;
-//    self.titleColor=titleColorSelected;
-//}
-//-(void)setImageNormal:(UIImage *)imageNormal
-//{
-//    _imageNormal=imageNormal;
-//    self.image=imageNormal;
-//}
-//-(void)setImageSelected:(UIImage *)imageSelected
-//{
-//    _imageSelected=imageSelected;
-//    self.image=imageSelected;
-//}
-//-(void)setBackgroundImageNormal:(UIImage *)backgroundImageNormal
-//{
-//    _backgroundImageNormal=backgroundImageNormal;
-//    self.backgroundImage=backgroundImageNormal;
-//}
-//-(void)setBackgroundImageSelected:(UIImage *)backgroundImageSelected
-//{
-//    _backgroundImageSelected=backgroundImageSelected;
-//    self.backgroundImage=backgroundImageSelected;
-//}
+-(void)setTitleNormal:(NSString *)titleNormal
+{
+    _titleNormal=titleNormal;
+    self.title=titleNormal;
+}
+-(void)setTitleSelected:(NSString *)titleSelected
+{
+    _titleSelected=titleSelected;
+    self.title=titleSelected;
+}
+-(void)setTitleColorNormal:(UIColor *)titleColorNormal
+{
+    _titleColorNormal=titleColorNormal;
+    self.titleColor=titleColorNormal;
+}
+-(void)setTitleColorSelected:(UIColor *)titleColorSelected
+{
+    _titleColorSelected=titleColorSelected;
+    self.titleColor=titleColorSelected;
+}
+-(void)setImageNormal:(UIImage *)imageNormal
+{
+    _imageNormal=imageNormal;
+    self.image=imageNormal;
+}
+-(void)setImageSelected:(UIImage *)imageSelected
+{
+    _imageSelected=imageSelected;
+    self.image=imageSelected;
+}
+-(void)setBackgroundImageNormal:(UIImage *)backgroundImageNormal
+{
+    _backgroundImageNormal=backgroundImageNormal;
+    self.backgroundImage=backgroundImageNormal;
+}
+-(void)setBackgroundImageSelected:(UIImage *)backgroundImageSelected
+{
+    _backgroundImageSelected=backgroundImageSelected;
+    self.backgroundImage=backgroundImageSelected;
+}
+-(void)setBackgroundColorNormal:(UIColor *)backgroundColorNormal
+{
+    _backgroundColorNormal=backgroundColorNormal;
+    self.backgroundColor=backgroundColorNormal;
+}
 
 @end

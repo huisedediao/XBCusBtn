@@ -60,6 +60,10 @@ typedef void(^ActionBlock)(XBCusBtn *weakBtn);
 @property (nonatomic,strong) UIImage *backgroundImageNormal;
 /** 选中状态的背景图片 */
 @property (nonatomic,strong) UIImage *backgroundImageSelected;
+/** 正常状态的背景颜色,注意：原来的backgroundColor不再使用 */
+@property (nonatomic,strong) UIColor *backgroundColorNormal;
+/** 高亮状态的背景颜色注意：原来的backgroundColor不再使用 */
+@property (nonatomic,strong) UIColor *backgroundColorHighlight;
 
 /** 点击回调 */
 @property (nonatomic,copy) ActionBlock block;
