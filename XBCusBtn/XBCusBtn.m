@@ -70,15 +70,28 @@ label.frame.size.width;\
     self.backgroundColor=[UIColor clearColor];
     self.titleFont=[UIFont systemFontOfSize:15];
     self.titleColor=[UIColor blackColor];
+    self.titleColorHighlight=[UIColor blackColor];
+    self.backgroundColorHighlight=[UIColor blackColor];
     self.imageRectScale=0.5;
     self.contentType=XBCusBtnTypeImageLeft;
     self.spaceOfImageAndTitle=0;
     self.spaceToContentSide=0;
     self.contentSide=XBCusBtnSideCenter;
     self.backgroundColorNormal=[UIColor clearColor];
-//    self.backgroundColorHighlight=[UIColor clearColor];
     self.layer.masksToBounds=YES;
     [self addTarget:self action:@selector(selfClick) forControlEvents:UIControlEventTouchUpInside];
+    [self addObserver:self forKeyPath:@"highlighted" options:NSKeyValueObservingOptionNew context:nil];
+}
+-(void)dealloc
+{
+    [self removeObserver:self forKeyPath:@"highlighted"];
+}
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"highlighted"])
+    {
+        [self setNeedsDisplay];
+    }
 }
 -(void)selfClick{}
 -(void)sendAction:(SEL)action to:(id)target forEvent:(UIEvent *)event
@@ -130,10 +143,21 @@ label.frame.size.width;\
     {
         [self.image drawInRect:CGRectMake(self.imageOrigin.x, self.imageOrigin.y,self.imageRectSize.width,self.imageRectSize.height)];
     }
+    [self setTitleWithColor:self.titleColor];
+    if ([self isHighlighted])
+    {
+        [self.backgroundColorHighlight set];
+        UIRectFillUsingBlendMode(rect, kCGBlendModeMultiply);
+        
+        [self setTitleWithColor:self.titleColorHighlight];
+    }
+}
+-(void)setTitleWithColor:(UIColor *)color
+{
     if (self.title)
     {
         NSMutableDictionary *dict=[NSMutableDictionary new];
-        dict[NSForegroundColorAttributeName]=self.titleColor;
+        dict[NSForegroundColorAttributeName]=color;
         dict[NSFontAttributeName]=self.titleFont;
         [self.title drawInRect:CGRectMake(self.titleOrigin.x, self.titleOrigin.y,self.titleRectSize.width,self.titleRectSize.height) withAttributes:dict];
     }
@@ -518,25 +542,6 @@ label.frame.size.width;\
 {
     _imageSize=imageSize;
     [self setNeedsDisplay];
-}
--(void)setHighlighted:(BOOL)highlighted
-{
-    [super setHighlighted:highlighted];
-    if (highlighted)
-    {
-        if (self.backgroundColorHighlight)
-        {
-            self.backgroundColor=self.backgroundColorHighlight;
-        }
-        else
-        {
-            self.backgroundColor=self.backgroundColorNormal;
-        }
-    }
-    else
-    {
-        self.backgroundColor=self.backgroundColorNormal;
-    }
 }
 -(void)setSelected:(BOOL)selected
 {

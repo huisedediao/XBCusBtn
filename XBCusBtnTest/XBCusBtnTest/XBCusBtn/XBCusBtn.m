@@ -70,12 +70,28 @@ label.frame.size.width;\
     self.backgroundColor=[UIColor clearColor];
     self.titleFont=[UIFont systemFontOfSize:15];
     self.titleColor=[UIColor blackColor];
+    self.titleColorHighlight=[UIColor blackColor];
+    self.backgroundColorHighlight=[UIColor blackColor];
     self.imageRectScale=0.5;
     self.contentType=XBCusBtnTypeImageLeft;
     self.spaceOfImageAndTitle=0;
     self.spaceToContentSide=0;
     self.contentSide=XBCusBtnSideCenter;
+    self.backgroundColorNormal=[UIColor clearColor];
+    self.layer.masksToBounds=YES;
     [self addTarget:self action:@selector(selfClick) forControlEvents:UIControlEventTouchUpInside];
+    [self addObserver:self forKeyPath:@"highlighted" options:NSKeyValueObservingOptionNew context:nil];
+}
+-(void)dealloc
+{
+    [self removeObserver:self forKeyPath:@"highlighted"];
+}
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"highlighted"])
+    {
+        [self setNeedsDisplay];
+    }
 }
 -(void)selfClick{}
 -(void)sendAction:(SEL)action to:(id)target forEvent:(UIEvent *)event
@@ -127,10 +143,21 @@ label.frame.size.width;\
     {
         [self.image drawInRect:CGRectMake(self.imageOrigin.x, self.imageOrigin.y,self.imageRectSize.width,self.imageRectSize.height)];
     }
+    [self setTitleWithColor:self.titleColor];
+    if ([self isHighlighted])
+    {
+        [self.backgroundColorHighlight set];
+        UIRectFillUsingBlendMode(rect, kCGBlendModeMultiply);
+        
+        [self setTitleWithColor:self.titleColorHighlight];
+    }
+}
+-(void)setTitleWithColor:(UIColor *)color
+{
     if (self.title)
     {
         NSMutableDictionary *dict=[NSMutableDictionary new];
-        dict[NSForegroundColorAttributeName]=self.titleColor;
+        dict[NSForegroundColorAttributeName]=color;
         dict[NSFontAttributeName]=self.titleFont;
         [self.title drawInRect:CGRectMake(self.titleOrigin.x, self.titleOrigin.y,self.titleRectSize.width,self.titleRectSize.height) withAttributes:dict];
     }
@@ -534,45 +561,50 @@ label.frame.size.width;\
         self.backgroundImage=self.backgroundImageNormal?self.backgroundImageNormal:self.backgroundImageSelected;
     }
 }
-//-(void)setTitleNormal:(NSString *)titleNormal
-//{
-//    _titleNormal=titleNormal;
-//    self.title=titleNormal;
-//}
-//-(void)setTitleSelected:(NSString *)titleSelected
-//{
-//    _titleSelected=titleSelected;
-//    self.title=titleSelected;
-//}
-//-(void)setTitleColorNormal:(UIColor *)titleColorNormal
-//{
-//    _titleColorNormal=titleColorNormal;
-//    self.titleColor=titleColorNormal;
-//}
-//-(void)setTitleColorSelected:(UIColor *)titleColorSelected
-//{
-//    _titleColorSelected=titleColorSelected;
-//    self.titleColor=titleColorSelected;
-//}
-//-(void)setImageNormal:(UIImage *)imageNormal
-//{
-//    _imageNormal=imageNormal;
-//    self.image=imageNormal;
-//}
-//-(void)setImageSelected:(UIImage *)imageSelected
-//{
-//    _imageSelected=imageSelected;
-//    self.image=imageSelected;
-//}
-//-(void)setBackgroundImageNormal:(UIImage *)backgroundImageNormal
-//{
-//    _backgroundImageNormal=backgroundImageNormal;
-//    self.backgroundImage=backgroundImageNormal;
-//}
-//-(void)setBackgroundImageSelected:(UIImage *)backgroundImageSelected
-//{
-//    _backgroundImageSelected=backgroundImageSelected;
-//    self.backgroundImage=backgroundImageSelected;
-//}
+-(void)setTitleNormal:(NSString *)titleNormal
+{
+    _titleNormal=titleNormal;
+    self.title=titleNormal;
+}
+-(void)setTitleSelected:(NSString *)titleSelected
+{
+    _titleSelected=titleSelected;
+    self.title=titleSelected;
+}
+-(void)setTitleColorNormal:(UIColor *)titleColorNormal
+{
+    _titleColorNormal=titleColorNormal;
+    self.titleColor=titleColorNormal;
+}
+-(void)setTitleColorSelected:(UIColor *)titleColorSelected
+{
+    _titleColorSelected=titleColorSelected;
+    self.titleColor=titleColorSelected;
+}
+-(void)setImageNormal:(UIImage *)imageNormal
+{
+    _imageNormal=imageNormal;
+    self.image=imageNormal;
+}
+-(void)setImageSelected:(UIImage *)imageSelected
+{
+    _imageSelected=imageSelected;
+    self.image=imageSelected;
+}
+-(void)setBackgroundImageNormal:(UIImage *)backgroundImageNormal
+{
+    _backgroundImageNormal=backgroundImageNormal;
+    self.backgroundImage=backgroundImageNormal;
+}
+-(void)setBackgroundImageSelected:(UIImage *)backgroundImageSelected
+{
+    _backgroundImageSelected=backgroundImageSelected;
+    self.backgroundImage=backgroundImageSelected;
+}
+-(void)setBackgroundColorNormal:(UIColor *)backgroundColorNormal
+{
+    _backgroundColorNormal=backgroundColorNormal;
+    self.backgroundColor=backgroundColorNormal;
+}
 
 @end
