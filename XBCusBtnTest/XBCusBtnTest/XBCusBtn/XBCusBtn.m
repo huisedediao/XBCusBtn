@@ -77,7 +77,6 @@ label.frame.size.width;\
     self.spaceOfImageAndTitle=0;
     self.spaceToContentSide=0;
     self.contentSide=XBCusBtnSideCenter;
-    self.backgroundColorNormal=[UIColor clearColor];
     self.layer.masksToBounds=YES;
     [self addTarget:self action:@selector(selfClick) forControlEvents:UIControlEventTouchUpInside];
     [self addObserver:self forKeyPath:@"highlighted" options:NSKeyValueObservingOptionNew context:nil];
@@ -601,10 +600,6 @@ label.frame.size.width;\
     _backgroundImageSelected=backgroundImageSelected;
     self.backgroundImage=backgroundImageSelected;
 }
--(void)setBackgroundColorNormal:(UIColor *)backgroundColorNormal
-{
-    _backgroundColorNormal=backgroundColorNormal;
-    self.backgroundColor=backgroundColorNormal;
-}
+
 
 @end
