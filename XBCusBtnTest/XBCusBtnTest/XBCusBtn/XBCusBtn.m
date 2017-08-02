@@ -70,8 +70,6 @@ label.frame.size.width;\
     self.backgroundColor=[UIColor clearColor];
     self.titleFont=[UIFont systemFontOfSize:15];
     self.titleColor=[UIColor blackColor];
-    self.titleColorHighlight=[UIColor blackColor];
-    self.backgroundColorHighlight=[UIColor blackColor];
     self.imageRectScale=0.5;
     self.contentType=XBCusBtnTypeImageLeft;
     self.spaceOfImageAndTitle=0;
@@ -145,10 +143,15 @@ label.frame.size.width;\
     [self setTitleWithColor:self.titleColor];
     if ([self isHighlighted])
     {
-        [self.backgroundColorHighlight set];
-        UIRectFillUsingBlendMode(rect, kCGBlendModeMultiply);
+        if(self.backgroundColorHighlight)
+        {
+            [self.backgroundColorHighlight set];
+            UIRectFillUsingBlendMode(rect, kCGBlendModeMultiply);
+        }
         
-        [self setTitleWithColor:self.titleColorHighlight];
+        if (self.titleColorHighlight) {
+            [self setTitleWithColor:self.titleColorHighlight];
+        }
     }
 }
 -(void)setTitleWithColor:(UIColor *)color
@@ -600,6 +603,5 @@ label.frame.size.width;\
     _backgroundImageSelected=backgroundImageSelected;
     self.backgroundImage=backgroundImageSelected;
 }
-
 
 @end

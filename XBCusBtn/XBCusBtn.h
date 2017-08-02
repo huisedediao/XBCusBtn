@@ -54,7 +54,7 @@ typedef void(^ActionBlock)(XBCusBtn *weakBtn);
 @property (nonatomic,strong) UIColor *titleColorNormal;
 /** 选中状态的文字颜色，默认黑色 */
 @property (nonatomic,strong) UIColor *titleColorSelected;
-/** 高亮状态的文字颜色，默认黑色 */
+/** 高亮状态的文字颜色 */
 @property (nonatomic,strong) UIColor *titleColorHighlight;
 /** 标题字体，默认15号系统字体 */
 @property (nonatomic,strong) UIFont *titleFont;
@@ -62,9 +62,7 @@ typedef void(^ActionBlock)(XBCusBtn *weakBtn);
 @property (nonatomic,strong) UIImage *backgroundImageNormal;
 /** 选中状态的背景图片 */
 @property (nonatomic,strong) UIImage *backgroundImageSelected;
-/** 正常状态的背景颜色,注意：原来的backgroundColor不再使用 */
-//@property (nonatomic,strong) UIColor *    ;
-/** 高亮状态的背景颜色注意：原来的backgroundColor不再使用 */
+/** 高亮状态的背景颜色 */
 @property (nonatomic,strong) UIColor *backgroundColorHighlight;
 
 /** 点击回调 */
